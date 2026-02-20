@@ -1,0 +1,34 @@
+{
+  "name": "validkey",
+  "version": "1.0.0",
+  "description": "CLI tool to validate API keys for services like OpenAI",
+  "main": "dist/index.js",
+  "bin": {
+    "validkey": "dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "prepublishOnly": "npm run build",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsc && node dist/index.js"
+  },
+  "keywords": ["cli", "api-key", "validation", "openai"],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hasnainmumtaz/validkey.git"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "commander": "^12.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  }
+}
