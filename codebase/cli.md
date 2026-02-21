@@ -19,4 +19,4 @@
 
 ## Supported services
 
-At launch: **openai**. See [services.md](services.md) for the full list and how to add more.
+**openai**, **anthropic**. See [services.md](services.md) for the full list and how to add more.

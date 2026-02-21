@@ -1,6 +1,6 @@
 {
   "name": "validkey",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "CLI tool to validate API keys for services like OpenAI",
   "main": "dist/index.js",
   "bin": {
@@ -15,7 +15,12 @@
     "start": "node dist/index.js",
     "dev": "tsc && node dist/index.js"
   },
-  "keywords": ["cli", "api-key", "validation", "openai"],
+  "keywords": [
+    "cli",
+    "api-key",
+    "validation",
+    "openai"
+  ],
   "license": "MIT",
   "repository": {
     "type": "git",

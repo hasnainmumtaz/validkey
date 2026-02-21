@@ -5,6 +5,7 @@
 | Service  | CLI name | Env variable    | Validation endpoint |
 | -------- | -------- | ---------------- | -------------------- |
 | **OpenAI** | `openai` | `OPENAI_API_KEY` | `GET https://api.openai.com/v1/models` with `Authorization: Bearer <key>`. Valid if 200; invalid if 401, 403, or request error. |
+| **Anthropic** | `anthropic` | `ANTHROPIC_API_KEY` | `GET https://api.anthropic.com/v1/models` with `x-api-key` and `anthropic-version: 2023-06-01`. Valid if 200; invalid if 401, 403, or request error. |
 
 ## Adding a new service
 

@@ -1,6 +1,6 @@
 # validkey
 
-A small CLI that checks whether an API key is valid for services like OpenAI. It does one minimal, read-only request (e.g. list models) and reports valid or invalid with the right exit code for scripts.
+A small CLI that checks whether an API key is valid for services like OpenAI and Anthropic. It does one minimal, read-only request (e.g. list models) and reports valid or invalid with the right exit code for scripts.
 
 **Requirements:** Node.js 18 or later.
 
@@ -16,6 +16,8 @@ Or run once without installing:
 
 ```bash
 npx validkey openai
+# or
+npx validkey anthropic
 ```
 
 **From source:**
@@ -37,7 +39,7 @@ validkey <service> [key]
 ```
 
 - **`validkey <service> <key>`** – Check the given key for that service.
-- **`validkey <service>`** – Use the key from the environment (e.g. `OPENAI_API_KEY` for `openai`). Fails with a clear error if the variable is missing.
+- **`validkey <service>`** – Use the key from the environment (e.g. `OPENAI_API_KEY` for `openai`, `ANTHROPIC_API_KEY` for `anthropic`). Fails with a clear error if the variable is missing.
 
 ### Options
 
@@ -52,12 +54,16 @@ validkey <service> [key]
 # Check an OpenAI key passed as an argument
 validkey openai sk-your-key-here
 
-# Check using OPENAI_API_KEY from the environment
+# Check an Anthropic key
+validkey anthropic sk-ant-your-key-here
+
+# Check using env vars (OPENAI_API_KEY or ANTHROPIC_API_KEY)
 validkey openai
+validkey anthropic
 
 # Script-friendly: only exit code
 validkey openai --quiet
-if validkey openai -q; then echo "Key is valid"; fi
+if validkey anthropic -q; then echo "Key is valid"; fi
 ```
 
 ### Exit codes
@@ -72,5 +78,6 @@ if validkey openai -q; then echo "Key is valid"; fi
 | Service | CLI name | Env variable |
 |---------|----------|--------------|
 | OpenAI | `openai` | `OPENAI_API_KEY` |
+| Anthropic | `anthropic` | `ANTHROPIC_API_KEY` |
 
 More services can be added; see the `codebase/` folder for how the tool is structured and how to add new validators.
