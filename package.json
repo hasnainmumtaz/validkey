@@ -24,7 +24,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/hasnainmumtaz/validkey.git"
+    "url": "git+https://github.com/hasnainmumtaz/validkey.git"
   },
   "engines": {
     "node": ">=18.0.0"
