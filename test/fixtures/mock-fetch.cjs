@@ -1,4 +1,4 @@
-// Loaded only by CLI tests. Prevent all real provider requests.
+// CLI tests preload this module so no real credentials or network are used.
 globalThis.fetch = async (url, options) => {
   const expected = 'fake-cli-test-key';
   if (url === 'https://api.openai.com/v1/models') {
@@ -8,7 +8,11 @@ globalThis.fetch = async (url, options) => {
   } else {
     throw new Error('Unexpected validation destination');
   }
-  if (options.method !== 'GET') throw new Error('Expected a read-only request');
-  if (process.env.VALIDKEY_TEST_RESPONSE === 'network') throw new Error('Simulated offline connection');
-  return new Response('{}', {status:Number(process.env.VALIDKEY_TEST_RESPONSE || 200)});
+  if (options.method !== 'GET' || options.redirect !== 'error') throw new Error('Unsafe request');
+  const response = process.env.VALIDKEY_TEST_RESPONSE || '200';
+  if (response === 'network') throw new Error(`Network exception includes ${expected}`);
+  if (response === 'timeout') {
+    return new Promise((_resolve, reject) => options.signal.addEventListener('abort', () => reject(new Error(expected)), { once: true }));
+  }
+  return new Response(expected, { status: Number(response), statusText: expected });
 };

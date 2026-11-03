@@ -1,21 +1,18 @@
 # Supported services and adding new ones
 
-## Supported services
+| Service | CLI name | Environment variable | Validation endpoint |
+| --- | --- | --- | --- |
+| OpenAI | `openai` | `OPENAI_API_KEY` | `GET https://api.openai.com/v1/models` with `Authorization: Bearer <key>` |
+| Anthropic | `anthropic` | `ANTHROPIC_API_KEY` | `GET https://api.anthropic.com/v1/models` with `x-api-key` and `anthropic-version: 2023-06-01` |
 
-| Service  | CLI name | Env variable    | Validation endpoint |
-| -------- | -------- | ---------------- | -------------------- |
-| **OpenAI** | `openai` | `OPENAI_API_KEY` | `GET https://api.openai.com/v1/models` with `Authorization: Bearer <key>`. Accepted on 2xx; the check fails on non-2xx responses or request errors. Failure does not always mean an invalid key. |
-| **Anthropic** | `anthropic` | `ANTHROPIC_API_KEY` | `GET https://api.anthropic.com/v1/models` with `x-api-key` and `anthropic-version: 2023-06-01`. Accepted on 2xx; the check fails on non-2xx responses or request errors. Failure does not always mean an invalid key. |
+Both use the shared request handler and [result semantics](validation.md). Permission to list models is required; lack of that permission does not establish that a credential is invalid.
 
-## Adding a new service
+## Adding a provider
 
-1. **Create a validator** in `src/validators/<service>.ts` that exports a single async function:
-   - Signature: `(key: string) => Promise<{ valid: boolean; message?: string }>`.
-   - Perform one minimal read-only request (e.g. list models or no-op).
-   - Return `{ valid: true }` on 2xx; `{ valid: false, message: "..." }` on 401/403 or on network/unexpected errors.
+1. Choose an official, minimal, read-only endpoint and document the permissions required. Do not perform billable inference simply to check a key.
+2. Create a validator in `src/validators/` accepting `(key: string, options?: ValidationOptions)` and returning `Promise<ValidationResult>`. Use `checkEndpoint` with the fixed provider URL and authentication headers where its response semantics apply. If the provider has different semantics, document and test its mapping explicitly.
+3. Register its name in `validators` and its environment variable in `envKeys`. Resolve names through `getValidator`, which checks own properties rather than inherited object members.
+4. Test headers and destination, success, authentication, permissions, rate limits, provider failure, network errors, timeout, and safe diagnostics. Use fake credentials and mocked requests only.
+5. Update the README and these docs.
 
-2. **Register the validator** in `src/validators/index.ts`: add the service name and function to the `validators` map, and the env variable name (e.g. `ANTHROPIC_API_KEY`) to the `envKeys` map so `validkey <service>` can read the key from the environment.
-
-3. **Document** the service and its env variable in this file and in [validation.md](validation.md). Update [cli.md](cli.md) if the help text lists services.
-
-No secrets in the repo; keys only from CLI args or environment.
+Keys come from arguments, environment variables, explicit stdin, or hidden terminal input. Never print or commit them.
