@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Report a security vulnerability privately
+    url: https://github.com/hasnainmumtaz/validkey/security/advisories/new
+    about: Do not post vulnerabilities or API keys in public issues.
+  - name: Usage and troubleshooting
+    url: https://github.com/hasnainmumtaz/validkey/blob/main/SUPPORT.md
+    about: Read the support guide before opening an issue.
