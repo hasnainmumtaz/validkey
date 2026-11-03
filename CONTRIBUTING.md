@@ -24,7 +24,9 @@ node dist/index.js --help
 
 - `src/index.ts`: argument handling, output, and exit status.
 - `src/validators/index.ts`: provider registry and environment variables.
-- `src/validators/*.ts`: provider-specific validation requests.
+- `src/validators/request.ts`: result types, status classification, and request deadlines.
+- `src/validators/*.ts`: provider authentication headers and endpoints.
+- `src/input.ts`: bounded stdin and hidden terminal entry.
 - `test/`: offline validator and CLI tests.
 - `codebase/`: implementation documentation.
 
@@ -33,9 +35,9 @@ Keep changes focused and follow the existing TypeScript style. Avoid unnecessary
 ## Adding a provider
 
 1. Choose an official, minimal, read-only endpoint. Explain what success proves and which permissions are required.
-2. Implement a validator returning `Promise<{ valid: boolean; message?: string }>`. Send the key only to the intended provider and avoid printing it.
+2. Implement a validator accepting `ValidationOptions` and returning `Promise<ValidationResult>` from `src/validators/request.ts`. Reuse the shared request handler where appropriate. Send the key only to the intended provider and avoid printing it.
 3. Register the CLI name and environment variable in `src/validators/index.ts`.
-4. Add offline tests for success, empty input, rejected credentials, permission denial, unexpected responses, and network failure. Verify the destination and authentication headers with fake values.
+4. Add offline tests for success, empty input, rejected credentials, permission denial, unexpected responses, network failure, timeout, and credential redaction. Verify the destination and authentication headers with fake values.
 5. Update the README and relevant `codebase/` documentation.
 
 Diagnostic text should distinguish credential, permission, and network failures. Discuss changes to exit codes, flags, or runtime requirements because scripts may depend on them.
