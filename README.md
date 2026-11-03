@@ -1,6 +1,6 @@
 # validkey
 
-[![npm version](https://img.shields.io/npm/v/validkey)](https://www.npmjs.com/package/validkey)
+[![npm version](https://img.shields.io/npm/v/validkey?cacheSeconds=300)](https://www.npmjs.com/package/validkey)
 [![CI](https://github.com/hasnainmumtaz/validkey/actions/workflows/ci.yml/badge.svg)](https://github.com/hasnainmumtaz/validkey/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
