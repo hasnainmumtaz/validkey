@@ -1,4 +1,4 @@
-# Keycheck Codebase
+# Validkey codebase
 
 This folder contains documentation for the **validkey** CLI tool, which validates API keys for services such as OpenAI.
 
