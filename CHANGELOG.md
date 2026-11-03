@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.1.0 (prepared, not yet published)
+## 1.1.0 (2026-11-04)
 
 - Add distinct result statuses for accepted requests, authentication and permission failures, rate limits, provider failures, network errors, and timeouts.
 - Add `--timeout <ms>` with a 10-second default and cancellation of stalled requests.

@@ -10,8 +10,6 @@ Check whether an API key works, without writing another validation script.
 
 I kept needing to check whether an API key was working. Each time, I had to write the same validation code again. I built Validkey to turn that repeated task into a single command I could reuse from my terminal or scripts.
 
-> Version 1.1.0 is being prepared on `main`. The new options below are available from source; npm still serves 1.0.1 until the release is published.
-
 ## Quick start
 
 Requires Node.js 18 or later. Development and CI use Node.js 22 and 24.
